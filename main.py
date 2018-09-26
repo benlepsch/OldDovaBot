@@ -7,7 +7,12 @@ Bot for the Scandals Family Discord server
 
 import discord, asyncio, random
 
-gaz_coins = [0,0,0,0,0,0,0,0,0,0] #Dovahkiin, JSD, NeatoBurrito, Mege, Gazorpazorp, Astrae, Bizna, Fone, Gen_1, Zenattra
+gaz_coins = {"<@!262637906865291264>" : 0, "<@!178876334095859712>" : 0, "<@!201509495220731906>" : 0,
+             "<@!158033864562835456>" : 0, "<@389919287785160714>" : 0, "<@!187697102615216128>" : 0,
+             "<@303235342935523330>" : 0, "<@180875776671875072>" : 0, "<@108833905552977920>" : 0,
+             "<@251806188243648512>" : 0, "<@!210984200235515907>" : 0, "<@209575733989736448>" : 0}
+
+            #Dovahkiin, JSD, NeatoBurrito, Mege, Gazorpazorp, Astrae, Bizna, Fone, Gen_1, Zenattra, pandabearkev, kevadrenaline
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -31,38 +36,12 @@ class MyClient(discord.Client):
         if message.content.startswith('!testlvlup'):
             command = message.content.split()
             if len(command) > 1:
-                if command[1] == "<@!262637906865291264>":
-                    gaz_coins[0]+=1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[0]) + " gaz coins!")
-                if command[1] == "<@!178876334095859712>":
-                    gaz_coins[1]+=1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[1]) + " gaz coins!")
-                if command[1] == "<@!201509495220731906>":
-                    gaz_coins[2] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[2]) + " gaz coins!")
-                if command[1] == "<@!158033864562835456>":
-                    gaz_coins[3] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[3]) + " gaz coins!")
-                if command[1] == "<@389919287785160714>":
-                    gaz_coins[4] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[4]) + " gaz coins!")
-                if command[1] == "<@!187697102615216128>":
-                    gaz_coins[5] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[5]) + " gaz coins!")
-                if command[1] == "<@303235342935523330>":
-                    gaz_coins[6] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[6]) + " gaz coins!")
-                if command[1] == "<@180875776671875072>":
-                    gaz_coins[7] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[7]) + " gaz coins!")
-                if command[1] == "<@108833905552977920>":
-                    gaz_coins[8] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[8]) + " gaz coins!")
-                if command[1] == "<@251806188243648512>":
-                    gaz_coins[9] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[9]) + " gaz coins!")
+                if command[1] in gaz_coins:
+                    gaz_coins[command[1]] += 1
+                    await message.channel.send(command[1] + " now has " + str(gaz_coins[command[1]]) + " gaz coins!")
             else:
                 await message.channel.send("Incorrect syntax: use !testlvlup @<person>")
+                
         if message.content.startswith('!spam'):
             command = message.content.split()
             command.pop(0)
