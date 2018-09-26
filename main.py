@@ -7,12 +7,16 @@ Bot for the Scandals Family Discord server
 
 import discord, asyncio, random
 
-gaz_coins = {"<@!262637906865291264>" : 0, "<@!178876334095859712>" : 0, "<@!201509495220731906>" : 0,
-             "<@!158033864562835456>" : 0, "<@389919287785160714>" : 0, "<@!187697102615216128>" : 0,
-             "<@303235342935523330>" : 0, "<@180875776671875072>" : 0, "<@108833905552977920>" : 0,
-             "<@251806188243648512>" : 0, "<@!210984200235515907>" : 0, "<@209575733989736448>" : 0}
+gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!201509495220731906>" : 6,  #Dovahkiin, JSD, NeatoBurrito
+             "<@!158033864562835456>" : 13, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   #Mege, Gazorpazorp, Astrae
+             "<@303235342935523330>" : 1, "<@180875776671875072>" : 8, "<@108833905552977920>" : 12,     #Bizna, Fone, Gen_1
+             "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4}     #Zenattra, PandaBearKev, Kevadrenaline
 
-            #Dovahkiin, JSD, NeatoBurrito, Mege, Gazorpazorp, Astrae, Bizna, Fone, Gen_1, Zenattra, pandabearkev, kevadrenaline
+'''
+
+Ding! GG @shadowburn to fuel pls, you j
+1     2  3
+'''
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -30,24 +34,28 @@ class MyClient(discord.Client):
             await message.channel.send('Hello {0.author.mention}'.format(message))
             
         if message.content.startswith('Ding! GG') and message.author.id == 159985870458322944:
+            command = message.content.split()
+            print_string = "Level up! "
             file = discord.File("levelupimg.png",filename="levelupimg.png")
-            await message.channel.send("Level Up!", file=file)
+            
+            if command[2] in gaz_coins:
+                gaz_coins[command[2]] += 1
+                print_string += command[2] + " now has " + str(gaz_coins[command[2]]) + " gaz coins!"
+
+            await message.channel.send(print_string, file=file)
 
         if message.content.startswith('!gazcoins'):
             command = message.content.split()
             if len(command) > 1:
                 if command[1] in gaz_coins:
-                    gaz_coins[command[1]] += 1
-                    await message.channel.send(command[1] + " now has " + str(gaz_coins[command[1]]) + " gaz coins!")
+                    await message.channel.send(command[1] + " has " + str(gaz_coins[command[1]]) + " gaz coins!")
             else:
                 sender = "<@" + str(message.author.id) + ">"
                 sender2 = "<@!" + str(message.author.id) + ">"
                 if sender in gaz_coins:
-                    gaz_coins[sender] += 1
-                    await message.channel.send(sender + " now has " + str(gaz_coins[sender]) + " gaz coins!")
+                    await message.channel.send(sender + " has " + str(gaz_coins[sender]) + " gaz coins!")
                 if sender2 in gaz_coins:
-                    gaz_coins[sender2] += 1
-                    await message.channel.send(sender2 + " now has " + str(gaz_coins[sender2]) + " gaz coins!")
+                    await message.channel.send(sender2 + " has " + str(gaz_coins[sender2]) + " gaz coins!")
         if message.content.startswith('!spam'):
             command = message.content.split()
             command.pop(0)
