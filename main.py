@@ -33,15 +33,21 @@ class MyClient(discord.Client):
             file = discord.File("levelupimg.png",filename="levelupimg.png")
             await message.channel.send("Level Up!", file=file)
 
-        if message.content.startswith('!testlvlup'):
+        if message.content.startswith('!gazcoins'):
             command = message.content.split()
             if len(command) > 1:
                 if command[1] in gaz_coins:
                     gaz_coins[command[1]] += 1
                     await message.channel.send(command[1] + " now has " + str(gaz_coins[command[1]]) + " gaz coins!")
             else:
-                await message.channel.send("Incorrect syntax: use !testlvlup @<person>")
-                
+                sender = "<@" + str(message.author.id) + ">"
+                sender2 = "<@!" + str(message.author.id) + ">"
+                if sender in gaz_coins:
+                    gaz_coins[sender] += 1
+                    await message.channel.send(sender + " now has " + str(gaz_coins[sender]) + " gaz coins!")
+                if sender2 in gaz_coins:
+                    gaz_coins[sender2] += 1
+                    await message.channel.send(sender2 + " now has " + str(gaz_coins[sender2]) + " gaz coins!")
         if message.content.startswith('!spam'):
             command = message.content.split()
             command.pop(0)
