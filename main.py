@@ -8,7 +8,7 @@ Bot for the Scandals Family Discord server
 import discord, asyncio, random, time
 
 gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!201509495220731906>" : 6,  # Dovahkiin, JSD, NeatoBurrito
-             "<@!158033864562835456>" : 13, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   # Mege, Gazorpazorp, Astrae
+             "<@!158033864562835456>" : 14, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   # Mege, Gazorpazorp, Astrae
              "<@303235342935523330>" : 1, "<@180875776671875072>" : 8, "<@108833905552977920>" : 12,     # Bizna, Fone, Gen_1
              "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     # Zenattra, PandaBearKev, Kevadrenaline
              "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 0, "<@384489637193973767>" : 0,   # WhaleScience, SantaClaws, Corpsetaker
@@ -89,6 +89,8 @@ class MyClient(discord.Client):
 
         if message.content.startswith('!badping'):
             await message.channel.send('<:Pingsock:485258651708424194>')
+        if message.content.startswith('!applause'):
+            await message.channel.send('\U0001F44F' * 50)
 
         if message.content.startswith('!diagnoseme'):
             responses = ['you have HIV.','you have coronary artery disease.','you are having a stroke.','you have lung cancer.','you have type 1 diabetes.','you have Alzheimer\'s disease.','you have tuberculosis.','you have melanoma.']
@@ -100,4 +102,4 @@ class MyClient(discord.Client):
 ''')
 
 client = MyClient()
-client.run('token')
+client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DosPTw.fUkMw5MEh7C1yoAcNMRK-MEKjmw')
