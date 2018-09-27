@@ -31,9 +31,9 @@ class MyClient(discord.Client):
         await client.change_presence(status=discord.Status.idle, activity=game)
     
     async def on_message(self, message):
-        # we do not want the bot to reply to itself
-        if message.author.id == self.user.id:
-            return
+        # we do not want the bot to reply to itself (actually commenting that out rn
+        #if message.author.id == self.user.id:
+        #    return
 
         if message.content.startswith('!hello'):
             await message.channel.send('Hello {0.author.mention}'.format(message))
