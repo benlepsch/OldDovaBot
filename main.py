@@ -49,14 +49,21 @@ class MyClient(discord.Client):
                 arr += char
 
             arr.pop(len(arr) - 1)
-            final_name = ''
+            final_name_1 = '<@!'
+            final_name_2 = '<@'
             for i in arr:
-                final_name += i
-            command[2] = final_name
+                final_name_1 += i
+                final_name_2 += i
+             
+            final_name_1 += '>'
+            final_name_2 += '>'
             
-            if command[2] in gaz_coins:
-                gaz_coins[command[2]] += 1
-                print_string += command[2] + " now has " + str(gaz_coins[command[2]]) + " gaz coins!"
+            if final_name_1 in gaz_coins:
+                gaz_coins[final_name_1] += 1
+                print_string += final_name_1 + " now has " + str(gaz_coins[final_name_1]) + " gaz coins!"
+            if final_name_2 in gaz_coins:
+                gaz_coins[final_name_2] += 1
+                print_string += final_name_2 + " now has " + str(gaz_coins[final_name_2]) + " gaz coins!"
 
             await message.channel.send(print_string, file=file)
 
