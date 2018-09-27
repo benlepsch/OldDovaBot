@@ -11,8 +11,8 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@!158033864562835456>" : 14, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   # Mege, Gazorpazorp, Astrae
              "<@303235342935523330>" : 1, "<@180875776671875072>" : 8, "<@108833905552977920>" : 12,     # Bizna, Fone, Gen_1
              "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     # Zenattra, PandaBearKev, Kevadrenaline
-             "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 0, "<@384489637193973767>" : 0,   # WhaleScience, SantaClaws, Corpsetaker
-             "<@385092345814581260>" : 6, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
+             "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 2, "<@384489637193973767>" : 1,   # WhaleScience, SantaClaws, Corpsetaker
+             "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
              "<@!257037119153897472> " : 16} # Liberosi/Aku
 
 '''
@@ -48,22 +48,20 @@ class MyClient(discord.Client):
             for char in name:
                 arr += char
 
+            final_name_1 = ''
+            final_name_2 = ''
+            
             arr.pop(len(arr) - 1)
-            final_name_1 = '<@!'
-            final_name_2 = '<@'
             for i in arr:
                 final_name_1 += i
                 final_name_2 += i
              
             final_name_1 += '>'
-            final_name_2 += '>'
+            print(final_name_1)
             
             if final_name_1 in gaz_coins:
                 gaz_coins[final_name_1] += 1
                 print_string += final_name_1 + " now has " + str(gaz_coins[final_name_1]) + " gaz coins!"
-            if final_name_2 in gaz_coins:
-                gaz_coins[final_name_2] += 1
-                print_string += final_name_2 + " now has " + str(gaz_coins[final_name_2]) + " gaz coins!"
 
             await message.channel.send(print_string, file=file)
 
