@@ -98,8 +98,8 @@ class MyClient(discord.Client):
             await message.channel.send('After researching your symptoms, I conclude that ' + responses[number])
         if message.content.startswith('!dovabotcommands'):
             await message.channel.send('''!hello : outputs "Hello <user>" \n!spam <number of times> <message> : spams the set message the number of times \n!badping : prints the pingsock emoji
-!diagnoseme <symptoms> : Diagnoses your symptoms and outputs what disease you have. \n!gazcoins <user(optional)> outputs the number of gazcoins the user has. If there isn't a user entered, it gives the number you have.
-''')
+!diagnoseme <symptoms> : Diagnoses your symptoms and outputs what disease you have. \n!gazcoins <user(optional)> : outputs the number of gazcoins the user has. If there isn't a user entered, it gives the number you have.
+!applause : prints the clapping emoji 50 times''')
 
 client = MyClient()
 client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DosPTw.fUkMw5MEh7C1yoAcNMRK-MEKjmw')
