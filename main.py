@@ -27,7 +27,7 @@ class MyClient(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
-
+    
     async def on_message(self, message):
         # we do not want the bot to reply to itself
         if message.author.id == self.user.id:
@@ -98,4 +98,5 @@ class MyClient(discord.Client):
 ''')
 
 client = MyClient()
-client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DosPTw.fUkMw5MEh7C1yoAcNMRK-MEKjmw')
+game = discord.Game("with the API")
+await client.change_presence(status=discord.Status.idle, activity=game)
