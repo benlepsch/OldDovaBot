@@ -27,6 +27,8 @@ class MyClient(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
+        game = discord.Game("new torbjorn")
+        await client.change_presence(status=discord.Status.idle, activity=game)
     
     async def on_message(self, message):
         # we do not want the bot to reply to itself
@@ -98,5 +100,4 @@ class MyClient(discord.Client):
 ''')
 
 client = MyClient()
-game = discord.Game("with the API")
-await client.change_presence(status=discord.Status.idle, activity=game)
+client.run('token')
