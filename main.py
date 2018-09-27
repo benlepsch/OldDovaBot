@@ -5,13 +5,15 @@ DovaBot
 Bot for the Scandals Family Discord server
 '''
 
-import discord, asyncio, random
+import discord, asyncio, random, time
 
-gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!201509495220731906>" : 6,  #Dovahkiin, JSD, NeatoBurrito
-             "<@!158033864562835456>" : 13, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   #Mege, Gazorpazorp, Astrae
-             "<@303235342935523330>" : 1, "<@180875776671875072>" : 8, "<@108833905552977920>" : 12,     #Bizna, Fone, Gen_1
-             "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     #Zenattra, PandaBearKev, Kevadrenaline
-             "<@!252315498551836673>" : 11} #WhaleScience
+gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!201509495220731906>" : 6,  # Dovahkiin, JSD, NeatoBurrito
+             "<@!158033864562835456>" : 13, "<@389919287785160714>" : 6, "<@!187697102615216128>" : 7,   # Mege, Gazorpazorp, Astrae
+             "<@303235342935523330>" : 1, "<@180875776671875072>" : 8, "<@108833905552977920>" : 12,     # Bizna, Fone, Gen_1
+             "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     # Zenattra, PandaBearKev, Kevadrenaline
+             "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 0, "<@384489637193973767>" : 0,   # WhaleScience, SantaClaws, Corpsetaker
+             "<@385092345814581260>" : 6, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
+             "<@!257037119153897472> " : 16} # Liberosi/Aku
 
 '''
 
@@ -38,6 +40,17 @@ class MyClient(discord.Client):
             command = message.content.split()
             print_string = "Level up! "
             file = discord.File("levelupimg.png",filename="levelupimg.png")
+
+            name = command[2]
+            arr = []
+            for char in name:
+                arr += char
+
+            arr.pop(len(arr) - 1)
+            final_name = ''
+            for i in arr:
+                final_name += i
+            command[2] = final_name
             
             if command[2] in gaz_coins:
                 gaz_coins[command[2]] += 1
@@ -81,7 +94,8 @@ class MyClient(discord.Client):
             await message.channel.send('After researching your symptoms, I conclude that ' + responses[number])
         if message.content.startswith('!dovabotcommands'):
             await message.channel.send('''!hello : outputs "Hello <user>" \n!spam <number of times> <message> : spams the set message the number of times \n!badping : prints the pingsock emoji
-!diagnoseme <symptoms> : Diagnoses your symptoms and outputs what disease you have.''')
+!diagnoseme <symptoms> : Diagnoses your symptoms and outputs what disease you have. \n!gazcoins <user(optional)> outputs the number of gazcoins the user has. If there isn't a user entered, it gives the number you have.
+''')
 
 client = MyClient()
 client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DosPTw.fUkMw5MEh7C1yoAcNMRK-MEKjmw')
