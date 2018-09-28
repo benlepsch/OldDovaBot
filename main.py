@@ -71,6 +71,25 @@ class MyClient(discord.Client):
                     await message.channel.send(sender + " has " + str(gaz_coins[sender]) + " gaz coins!")
                 if sender2 in gaz_coins:
                     await message.channel.send(sender2 + " has " + str(gaz_coins[sender2]) + " gaz coins!")
+        if message.content.startswith('!gazmsg'):
+            command = message.content.split()
+            command.pop(0)
+
+            msg = ''
+
+            for i in command:
+                msg += i
+                msg += ' '
+
+            username1 = '<@' + str(message.author.id) + '>'
+            username2 = '<@!' + str(message.author.id) + '>'
+
+            if username1 in gaz_coins:
+                gaz_coins[username1] -= 1
+                await message.channel.send(username1 + " now has " + str(gaz_coins[username1]) + " gaz coins. \n<@389919287785160714> " + msg)
+            elif username2 in gaz_coins:
+                gaz_coins[username2] -= 1
+                await message.channel.send(username2 + " now has " + str(gaz_coins[username2]) + " gaz coins. \n<@389919287785160714> " + msg)
         if message.content.startswith('!spam'):
             command = message.content.split()
             command.pop(0)
