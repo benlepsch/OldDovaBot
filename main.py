@@ -15,12 +15,6 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
              "<@!257037119153897472> " : 16} # Liberosi/Aku
 
-'''
-
-Ding! GG @shadowburn to fuel pls, you j
-1     2  3
-'''
-
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged in as')
@@ -43,7 +37,7 @@ class MyClient(discord.Client):
             print_string = "Level up! "
             file = discord.File("levelupimg.png",filename="levelupimg.png")
 
-            name = command[2]
+            name = command[2] # command is : Ding! GG @<name>
             arr = []
             for char in name:
                 arr += char
