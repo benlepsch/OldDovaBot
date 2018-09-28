@@ -27,7 +27,7 @@ class MyClient(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
-        game = discord.Game("new torbjorn")
+        game = discord.Game("!dovabotcommands")
         await client.change_presence(status=discord.Status.idle, activity=game)
     
     async def on_message(self, message):
