@@ -15,6 +15,19 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
              "<@!257037119153897472> " : 16} # Liberosi/Aku
 
+def import_values(file):
+    levels = []
+    with open(file, "r") as leveldata:
+        levels = leveldata.read().split()
+
+def export_values(file):
+    print_str = ''
+    for i in gaz_coins:
+        print_str += i
+        print_str += ' '
+    with open(file, "w") as leveldata:
+        leveldata.write(print_str)
+
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged in as')
@@ -23,6 +36,7 @@ class MyClient(discord.Client):
         print('------')
         game = discord.Game("!dovabotcommands")
         await client.change_presence(status=discord.Status.idle, activity=game)
+        
     
     async def on_message(self, message):
         # we do not want the bot to reply to itself (actually commenting that out rn
@@ -30,9 +44,9 @@ class MyClient(discord.Client):
         #    return
 
         if message.content.startswith('!hello'):
-            await message.channel.send('Hello {0.author.mention}'.format(message))
+            await message.channel.send('Is it me you\'re looking for?')                  # !hello
             
-        if message.content.startswith('Ding! GG') and message.author.id == 159985870458322944:
+        if message.content.startswith('Ding! GG') and message.author.id == 159985870458322944:      # automatically update gaz coin count
             command = message.content.split()
             print_string = "Level up! "
             file = discord.File("levelupimg.png",filename="levelupimg.png")
@@ -59,7 +73,7 @@ class MyClient(discord.Client):
 
             await message.channel.send(print_string, file=file)
 
-        if message.content.startswith('!gazcoins'):
+        if message.content.startswith('!gazcoins'):                                                 # !gazcoins
             command = message.content.split()
             if len(command) > 1:
                 if command[1] in gaz_coins:
@@ -71,7 +85,7 @@ class MyClient(discord.Client):
                     await message.channel.send(sender + " has " + str(gaz_coins[sender]) + " gaz coins!")
                 if sender2 in gaz_coins:
                     await message.channel.send(sender2 + " has " + str(gaz_coins[sender2]) + " gaz coins!")
-        if message.content.startswith('!gazmsg'):
+        if message.content.startswith('!gazmsg'):                                                   # !gazmsg
             command = message.content.split()
             command.pop(0)
 
@@ -90,7 +104,8 @@ class MyClient(discord.Client):
             elif username2 in gaz_coins:
                 gaz_coins[username2] -= 1
                 await message.channel.send(username2 + " now has " + str(gaz_coins[username2]) + " gaz coins. \n<@389919287785160714> " + msg)
-        if message.content.startswith('!spam'):
+                
+        if message.content.startswith('!spam'):                                                     # !spam
             command = message.content.split()
             command.pop(0)
             
@@ -105,16 +120,17 @@ class MyClient(discord.Client):
             for i in range(number):
                 await message.channel.send(print_string)
 
-        if message.content.startswith('!badping'):
+        if message.content.startswith('!badping'):                                                  # !badping
             await message.channel.send('<:Pingsock:485258651708424194>')
         if message.content.startswith('!applause'):
             await message.channel.send('\U0001F44F' * 50)
 
-        if message.content.startswith('!diagnoseme'):
+        if message.content.startswith('!diagnoseme'):                                               # !diagnoseme
             responses = ['you have HIV.','you have coronary artery disease.','you are having a stroke.','you have lung cancer.','you have type 1 diabetes.','you have Alzheimer\'s disease.','you have tuberculosis.','you have melanoma.']
             number = random.randint(1,7)
             await message.channel.send('After researching your symptoms, I conclude that ' + responses[number])
-        if message.content.startswith('!dovabotcommands'):
+            
+        if message.content.startswith('!dovabotcommands'):                                          # !dovabotcommands
             await message.channel.send('''!hello : outputs "Hello <user>" \n!spam <number of times> <message> : spams the set message the number of times \n!badping : prints the pingsock emoji
 !diagnoseme <symptoms> : Diagnoses your symptoms and outputs what disease you have. \n!gazcoins <user(optional)> : outputs the number of gazcoins the user has. If there isn't a user entered, it gives the number you have.
 !applause : prints the clapping emoji 50 times''')
