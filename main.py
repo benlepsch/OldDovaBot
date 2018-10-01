@@ -28,7 +28,7 @@ def import_values(file):
 
     for i in data:
         ids.append(i[0])
-        coins.append(i[1])
+        coins.append(int(i[1]))
 
     print(ids)
     print(coins)
@@ -47,7 +47,8 @@ def export_values(file):
         print_str += i
         print_str += ':'
         print_str += str(gaz_coins[i])
-        print_str += ' '
+        if not i == "<@!257037119153897472>":
+            print_str += ' '
     with open(file, "w") as leveldata:
         leveldata.write(print_str)
 
@@ -67,6 +68,12 @@ class MyClient(discord.Client):
         #if message.author.id == self.user.id:
         #    return
 
+
+        # test commands go here
+
+
+        # end test commands
+        
         if message.content.startswith('!hello'):
             await message.channel.send('Is it me you\'re looking for?')                  # !hello
         if message.content.startswith('Ding! GG') and message.author.id == 159985870458322944:      # automatically update gaz coin count
@@ -93,7 +100,7 @@ class MyClient(discord.Client):
             if final_name_1 in gaz_coins:
                 gaz_coins[final_name_1] += 1
                 print_string += final_name_1 + " now has " + str(gaz_coins[final_name_1]) + " gaz coins!"
-
+            export_values("leveldata.txt")
             await message.channel.send(print_string, file=file)
 
         if message.content.startswith('!gazcoins'):                                                 # !gazcoins
@@ -108,6 +115,7 @@ class MyClient(discord.Client):
                     await message.channel.send(sender + " has " + str(gaz_coins[sender]) + " gaz coins!")
                 if sender2 in gaz_coins:
                     await message.channel.send(sender2 + " has " + str(gaz_coins[sender2]) + " gaz coins!")
+                    
         if message.content.startswith('!gazmsg'):                                                   # !gazmsg
             command = message.content.split()
             command.pop(0)
@@ -142,11 +150,11 @@ class MyClient(discord.Client):
 
             for i in range(number):
                 await message.channel.send(print_string)
-        if message.content.startswith('!testxport'):
-            export_values("leveldata.txt")
+                
         if message.content.startswith('!badping'):                                                  # !badping
             await message.channel.send('<:Pingsock:485258651708424194>')
-        if message.content.startswith('!applause'):
+            
+        if message.content.startswith('!applause'):                                                 # !applause
             await message.channel.send('\U0001F44F' * 50)
 
         if message.content.startswith('!diagnoseme'):                                               # !diagnoseme
