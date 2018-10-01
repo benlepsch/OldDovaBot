@@ -13,17 +13,40 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     # Zenattra, PandaBearKev, Kevadrenaline
              "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 2, "<@384489637193973767>" : 1,   # WhaleScience, SantaClaws, Corpsetaker
              "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
-             "<@!257037119153897472> " : 16} # Liberosi/Aku
+             "<@!257037119153897472>" : 16} # Liberosi/Aku
 
 def import_values(file):
-    levels = []
+    data = []
+    ids = []
+    coins = []
     with open(file, "r") as leveldata:
-        levels = leveldata.read().split()
+        data = leveldata.read().split(' ')
+    print(data)
+    for i in range(len(data)):
+        data[i] = data[i].split(':')
+        print(data[i])
+
+    for i in data:
+        ids.append(i[0])
+        coins.append(i[1])
+
+    print(ids)
+    print(coins)
+    
+    for i in gaz_coins:
+        for x in range(len(ids) - 1):
+            if ids[x] == i:
+                gaz_coins[i] = coins[x]
+                break
+    
+        
 
 def export_values(file):
     print_str = ''
     for i in gaz_coins:
         print_str += i
+        print_str += ':'
+        print_str += str(gaz_coins[i])
         print_str += ' '
     with open(file, "w") as leveldata:
         leveldata.write(print_str)
@@ -36,16 +59,16 @@ class MyClient(discord.Client):
         print('------')
         game = discord.Game("!dovabotcommands")
         await client.change_presence(status=discord.Status.idle, activity=game)
+        import_values("leveldata.txt")
         
     
     async def on_message(self, message):
-        # we do not want the bot to reply to itself (actually commenting that out rn
+        # we do not want the bot to reply to itself (actually commenting that out rn)
         #if message.author.id == self.user.id:
         #    return
 
         if message.content.startswith('!hello'):
             await message.channel.send('Is it me you\'re looking for?')                  # !hello
-            
         if message.content.startswith('Ding! GG') and message.author.id == 159985870458322944:      # automatically update gaz coin count
             command = message.content.split()
             print_string = "Level up! "
@@ -119,7 +142,8 @@ class MyClient(discord.Client):
 
             for i in range(number):
                 await message.channel.send(print_string)
-
+        if message.content.startswith('!testxport'):
+            export_values("leveldata.txt")
         if message.content.startswith('!badping'):                                                  # !badping
             await message.channel.send('<:Pingsock:485258651708424194>')
         if message.content.startswith('!applause'):
