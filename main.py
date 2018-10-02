@@ -15,23 +15,37 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
              "<@!257037119153897472>" : 16}                                                              # Liberosi/Aku
 
+bossAlive = False
+bossHP = 0
+bossDmg = 0
+bossRace = ''
+bossType = ''
+
+hp = 0
+dmg = 0
+
+roll = 0
+
+bossRaces = ['Orcish', 'Elvish', 'Human', 'Cotton candy']
+bossTypes = ['Mage', 'Knight', 'Archer']
+
 def import_values(file):                                # Import gaz coin values from a .txt file
     data = []
     ids = []
     coins = []
     with open(file, "r") as leveldata:
         data = leveldata.read().split(' ')
-    print(data)
+    #print(data)
     for i in range(len(data)):
         data[i] = data[i].split(':')
-        print(data[i])
+        #print(data[i])
 
     for i in data:
         ids.append(i[0])
         coins.append(int(i[1]))
 
-    print(ids)
-    print(coins)
+    #print(ids)
+    #print(coins)
     
     for i in gaz_coins:
         for x in range(len(ids) - 1):
@@ -71,8 +85,19 @@ class MyClient(discord.Client):
 
         # test commands go here
 
+        if message.content.startswith('!testcommand'):
+            await message.channel.send("it works")
 
         # end test commands
+
+        if message.content.startswith('!summonDungeonBoss'):
+            if not bossAlive:
+                roll = random.randint(0,3)
+                bossRace = bossRaces[roll]
+                if not bossRace == bossRaces[3]:
+                    roll = random.randint(0,2)
+                    bossType = bossTypes[roll]
+
         
         if message.content.startswith('!hello'):
             await message.channel.send('Is it me you\'re looking for?')                  # !hello
@@ -198,4 +223,4 @@ class MyClient(discord.Client):
 !applause : prints the clapping emoji 50 times''')
 
 client = MyClient()
-client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DosPTw.fUkMw5MEh7C1yoAcNMRK-MEKjmw')
+client.run('NDkzOTM4MDM3MTg5OTAyMzU4.DpRpeA.11L643eCDpyl4sU0Q55tGuTzjg8')
