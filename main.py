@@ -13,9 +13,9 @@ gaz_coins = {"<@!262637906865291264>" : 11, "<@!178876334095859712>" : 7, "<@!20
              "<@251806188243648512>" : 3, "<@!210984200235515907>" : 1, "<@209575733989736448>" : 4,     # Zenattra, PandaBearKev, Kevadrenaline
              "<@!252315498551836673>" : 11, "<@!348278804973748238>" : 2, "<@384489637193973767>" : 1,   # WhaleScience, SantaClaws, Corpsetaker
              "<@385092345814581260>" : 7, "<@420346616977817602>" : 2, "<@175784984655822848>" : 7,      # SlayinSteven, DevilOW, Matthzw
-             "<@!257037119153897472>" : 16} # Liberosi/Aku
+             "<@!257037119153897472>" : 16}                                                              # Liberosi/Aku
 
-def import_values(file):
+def import_values(file):                                # Import gaz coin values from a .txt file
     data = []
     ids = []
     coins = []
@@ -41,7 +41,7 @@ def import_values(file):
     
         
 
-def export_values(file):
+def export_values(file):                                # Export the values (called whenever gaz coins increase or decrease)
     print_str = ''
     for i in gaz_coins:
         print_str += i
@@ -131,10 +131,40 @@ class MyClient(discord.Client):
 
             if username1 in gaz_coins:
                 gaz_coins[username1] -= 1
+                export_values("leveldata.txt")
                 await message.channel.send(username1 + " now has " + str(gaz_coins[username1]) + " gaz coins. \n<@389919287785160714> " + msg)
             elif username2 in gaz_coins:
                 gaz_coins[username2] -= 1
+                export_values("leveldata.txt")
                 await message.channel.send(username2 + " now has " + str(gaz_coins[username2]) + " gaz coins. \n<@389919287785160714> " + msg)
+
+        if message.content.startswith('!gazsongreq'):
+            command = message.content.split()
+            msg = ''
+
+            user1 = '<@!' + str(message.author.id) + '>'
+            user2 = '<@' + str(message.author.id) + '>'
+            
+            if len(command) > 1:
+                command.pop(0)
+
+                if user1 in gaz_coins:
+                    gaz_coins[user1] -= 1
+                    for i in command:
+                        msg += i
+                        msg += ' '
+                    export_values("leveldata.txt")
+                    await message.channel.send(user1 + " now has " + str(gaz_coins[user1]) + " gaz coins. \n<@389919287785160714> play " + msg)
+                if user2 in gaz_coins:
+                    gaz_coins[user2] -= 1
+                    for i in command:
+                        msg += i
+                        msg += ' '
+                    export_values("leveldata.txt")
+                    await message.channel.send(user1 + " now has " + str(gaz_coins[user1]) + " gaz coins. \n<@389919287785160714> play " + msg)
+                
+            else:
+                await message.channel.send("Please enter a song title also (e.g. !gazsongreq ")
                 
         if message.content.startswith('!spam'):                                                     # !spam
             command = message.content.split()
