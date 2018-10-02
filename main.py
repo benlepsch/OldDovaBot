@@ -138,7 +138,7 @@ class MyClient(discord.Client):
                 export_values("leveldata.txt")
                 await message.channel.send(username2 + " now has " + str(gaz_coins[username2]) + " gaz coins. \n<@389919287785160714> " + msg)
 
-        if message.content.startswith('!gazsongreq'):
+        if message.content.startswith('!gazsongreq'):                                               # !gazsongreq
             command = message.content.split()
             msg = ''
 
