@@ -65,8 +65,8 @@ class MyClient(discord.Client):
     
     async def on_message(self, message):
         # we do not want the bot to reply to itself (actually commenting that out rn)
-        #if message.author.id == self.user.id:
-        #    return
+        if message.author.id == self.user.id:
+            return
 
 
         # test commands go here
